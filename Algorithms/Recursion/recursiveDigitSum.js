@@ -1,4 +1,68 @@
 /*=====LECTURE=====*/
+/*----CLASS SOLUTION----*/
+/* ALGORITHM
+// we have both n and k. to get p we do n, k times. 123, 3 -> 123 123 123
+// we can just calculate the super digit for n, and then multiple it by k
+// convert to string, then we need to recursively call our superDigit function
+// n = 999999999999999  k = 100000
+// what if we just sum up the digits of n
+// 135
+// 9 * 999999 =
+
+// first we take n, and sum the digits -> 135 * 99999 = 13,499,865
+// let sum = n.reduce( (a, b) => a + b, 0 );
+
+// let p = "";
+// for (let i = 0; i < k; i++) {
+//   p += n;
+// }
+// // p = 123123123123123
+*/
+/**
+ * Recursive Digit Sum
+ * https://www.hackerrank.com/challenges/recursive-digit-sum/
+ * @param {number} n 
+ * @param {number} k
+ * @return {integer} 
+ */
+function superDigit(n, k) {
+  // we can just calculate the super digit for n, 
+  let firstSum = sumDigits(n);
+  // and then multiple it by k
+	let product = Number(firstSum) * k;
+  // convert to string, then we need to recursively call our superDigit function
+	return Number(digitSumRecursive(product.toString()));
+}
+
+/**
+ * Helper function to reduce number to single digit
+ * @param {string} n
+ * @return {string} 
+ */
+function digitSumRecursive(n) {
+	// base case -> if it's less than 10, or greater than 0
+	if (n.length === 1) { //represents single digit number
+		return n;
+	}
+	// sum up the digits of n
+	const sum = sumDigits(n);
+	// call the digitSumRecursive again with the sum
+	return digitSumRecursive(sum.toString());
+}
+
+/**
+ * Helper function to calculate sum of digits
+ * @param {string} n
+ * @return {integer} 
+ */
+function sumDigits(n) {
+	let sumDigit = 0;
+	for (let i = 0; i < n.length; i++) {
+		sumDigit += Number(n[i]);
+	}
+	return sumDigit;
+}
+
 /*---MY SOLUTION---
 function superDigit(n, k) {
     // we are given n and k
@@ -74,10 +138,7 @@ function superDigit(n, k) {
   let p = concatenate(n, k)
 
   return superDigitRecursive(p)
-
-
 }
-
 
 function concatenate(n, k) {
   let c = ""
