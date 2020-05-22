@@ -3,7 +3,51 @@
  * https://www.hackerrank.com/challenges/truck-tour/problem
  */
 
-/*----MY SOLUTION 2-----*/
+/*----CLASS LECTURE (05/20/2020)----*/
+/* Algorithm */
+// two pointers, one for our start, and one for our current
+// check our current gas + gas station gas and make sure it's enough to get to the next station
+    // if it's not possible
+        // our start pointer moves
+        // reset the current to same as start
+
+    // if it is possible
+        // move to next gas station (increment current pointer)
+        // calculate the gas we will have left
+function truckTour(petrolpumps) {
+  /*
+  * Write your code here.
+  */
+  let start = 0;
+  let current = 0;
+
+  let currentGas = 0; // HERE
+  while (start < petrolpumps.length) {
+    let station = petrolpumps[current];
+    let gasQty = station[0];
+    let distanceToNextStation = station[1];
+
+    currentGas += gasQty
+    currentGas -= distanceToNextStation
+    if (currentGas >= 0) {
+      current += 1;
+      if (current >= petrolpumps.length) {
+        current = 0;
+      }
+      if (start === current) {
+        return start;
+      }
+    } else {
+      start += 1
+      current = start
+      currentGas = 0
+    }
+  }
+
+  return null;
+}
+
+/*----MY SOLUTION 2-----
 function truckTour(petrolpumps) {
 	let head = 0;
 	let smallestIndex = 0;
@@ -29,7 +73,8 @@ function truckTour(petrolpumps) {
 			return smallestIndex;
 		}
 	}
-} 
+}
+*/
 
 /*----CLASS LECTURE---
 function truckTour(petrolpumps) {
