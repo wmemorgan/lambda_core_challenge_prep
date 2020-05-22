@@ -34,6 +34,33 @@ class Stack {
 // You may use at most one additional stack to hold items, but you may not
 // copy the elements into any other data structure.
 
+/*----CLASS SOLUTION (05/22/2020)----*/
+function sortStack(input) {
+  // we have 2 stacks (input and output)
+  let output = new Stack(); // O(1)
+
+  while (!input.isEmpty()) { //O(n)
+    let temp = input.pop();
+
+    while (!output.isEmpty() && output.peek() > temp) { //O(n)
+      input.push(output.pop())
+    }
+    output.push(temp)
+  }
+
+
+  return output;
+  // x take the item off the top the first stack 
+  // x compare that item to the peeked at second stack
+  // if second stack top is smaller, put the temp var onto the second stack
+  // if the top of the second stack is larger than our temp
+  // pop second stack to first stack until we find a val smaller or hit the bottom
+
+  // then put temp onto the second stack
+
+}
+
+
 /*-----CLASS SOLUTION-----*/
 function sortStack(inputStack) {
 	const outputStack = new Stack();
